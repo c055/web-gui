@@ -1,0 +1,23 @@
+{
+  "name": "\"\"",
+  "homepage": "https://github.com/makerdao/web-gui",
+  "authors": [
+    "katherineobermeyer <katherine.obermeyer@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "remodal": "~1.0.5",
+    "web3": "~0.15.0",
+    "jquery": "~2.1.4"
+  }
+}

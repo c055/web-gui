@@ -4,16 +4,42 @@
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<link rel="stylesheet" type="text/css" href="css/normalize.css" />
 		<link rel="stylesheet" type="text/css" href="css/set2.css" />
+		<link rel="stylesheet" href="bower_components/remodal/dist/remodal.css">
+		<link rel="stylesheet" href="bower_components/remodal/dist/remodal-default-theme.css">
+		<script src="bower_components/jquery/dist/jquery.js"></script>
+		<script src="bower_components/remodal/dist/remodal.js"></script>
+
 	</head>
+
 	<body>
+		<div class="remodal-bg">
 		<div id="sidebar">
 			<div class="sidebar-item"> 
 				<img src="images/mkrcoin.png">
 			</div>
 		</div>
 		<div id="content">
+			
+
+			<div class="remodal" data-remodal-id="modal">
+  				<p>Unable to connect. Please start geth with the following options:</p>
+  				<div id="codeSnippet">
+						<code> 
+							geth --rpc --rpccorsdomain "http://ethereum-dapp-wallet.meteor.com"
+						</code>
+
+					<p style="padding-top:30px;">Optional add:</p>
+					
+						<code> 
+							--unlock &lt;yourAccount&gt;.
+						</code>
+				
+				</div>
+  				<br>
+  				<button data-remodal-action="confirm" class="remodal-confirm">OK</button>
+			</div>
 			<div id="inputs">
-				<img src="images/logo.png" style="margin-top: 4%;">
+				<a href="#modal"><img src="images/logo.png" style="margin-top: 4%;"></a>
 				<div id="titles">
 					<p>Account: <b>Account Name</b></p>
 					<p>Balance: <b>100 MKR</b></p>
@@ -45,6 +71,8 @@
 
 			</div>
 		</div>
+	</div>
+</div>
 		<script src="js/classie.js"></script>
 		<script>
 			(function() {
