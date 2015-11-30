@@ -9,6 +9,32 @@
 		<script src="bower_components/jquery/dist/jquery.js"></script>
 		<script src="bower_components/remodal/dist/remodal.js"></script>
 
+		<script src="js/maker-js/dist/maker-browserified.js"></script>
+        <script>
+            $(function() {
+                var maker = window.maker;
+                var web3 = maker.web3;
+                web3.setProvider(new web3.providers.HttpProvider("http://localhost:8545"));
+                var geth_div = $('[data-remodal-id="geth-warning"]');
+                var geth_modal = $(geth_div).remodal();
+                setInterval(function() {
+                    var state = geth_modal.getState();
+                    if( maker.web3.isConnected() ) {
+                        if( state == 'opened' ) {
+                            geth_modal.close();
+                        }
+                    } else {
+                        if( state != 'opened' ) {
+                            geth_modal.open();
+                        }
+                    }
+                }, 1000);
+                maker.getSupply("MKR", function(err, supply) {
+                    console.log(err, supply);
+                });
+           });
+        </script>
+
 	</head>
 
 	<body>
@@ -21,11 +47,11 @@
 		<div id="content">
 			
 
-			<div class="remodal" data-remodal-id="modal" id="modal1">
+			<div data-remodal-id="geth-warning" id="modal1">
   				<p>Unable to connect. Please start geth with the following options:</p>
   				<div id="codeSnippet">
 						<code> 
-							geth --rpc --rpccorsdomain "http://ethereum-dapp-wallet.meteor.com"
+							geth --rpc --rpccorsdomain "app.makerdao.com"
 						</code>
 
 					<p style="padding-top:30px;">Optional add:</p>
@@ -39,7 +65,7 @@
   				<button data-remodal-action="confirm" class="remodal-confirm">OK</button>
 			</div>
 			<div id="inputs">
-				<a href="#modal"><img src="images/logo.png" style="margin-top: 4%;"></a>
+				<img src="images/logo.png" style="margin-top: 4%;" data-remodal-target="geth-warning">
 				<div id="titles">
 					<p>Account: <b>19vNHxk11rSkekgMAX6iHCe4Cgj5FxZVtA</b></p>
 					<p>Balance: <b>100 MKR</b></p>
