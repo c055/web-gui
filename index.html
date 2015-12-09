@@ -4,18 +4,70 @@
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<link rel="stylesheet" type="text/css" href="css/normalize.css" />
 		<link rel="stylesheet" type="text/css" href="css/set2.css" />
+		<link rel="stylesheet" href="bower_components/remodal/dist/remodal.css">
+		<link rel="stylesheet" href="bower_components/remodal/dist/remodal-default-theme.css">
+		<script src="bower_components/jquery/dist/jquery.js"></script>
+		<script src="bower_components/remodal/dist/remodal.js"></script>
+
+		<script src="js/maker-js/dist/maker-browserified.js"></script>
+        <script>
+            $(function() {
+                var maker = window.maker;
+                var web3 = maker.web3;
+                web3.setProvider(new web3.providers.HttpProvider("http://localhost:8545"));
+                var geth_div = $('[data-remodal-id="geth-warning"]');
+                var geth_modal = $(geth_div).remodal();
+                setInterval(function() {
+                    var state = geth_modal.getState();
+                    if( maker.web3.isConnected() ) {
+                        if( state == 'opened' ) {
+                            geth_modal.close();
+                        }
+                    } else {
+                        if( state != 'opened' ) {
+                            geth_modal.open();
+                        }
+                    }
+                }, 1000);
+                maker.getSupply("MKR", function(err, supply) {
+                    console.log(err, supply);
+                });
+           });
+        </script>
+
 	</head>
+
 	<body>
+		<div class="remodal-bg">
 		<div id="sidebar">
 			<div class="sidebar-item"> 
 				<img src="images/mkrcoin.png">
 			</div>
 		</div>
 		<div id="content">
+			
+
+			<div data-remodal-id="geth-warning" id="modal1">
+  				<p>Unable to connect. Please start geth with the following options:</p>
+  				<div id="codeSnippet">
+						<code> 
+							geth --rpc --rpccorsdomain "app.makerdao.com"
+						</code>
+
+					<p style="padding-top:30px;">Optional add:</p>
+					
+						<code> 
+							--unlock &lt;yourAccount&gt;.
+						</code>
+				
+				</div>
+  				<br>
+  				<button data-remodal-action="confirm" class="remodal-confirm">OK</button>
+			</div>
 			<div id="inputs">
-				<img src="images/logo.png" style="margin-top: 4%;">
+				<img src="images/logo.png" style="margin-top: 4%;" data-remodal-target="geth-warning">
 				<div id="titles">
-					<p>Account: <b>Account Name</b></p>
+					<p>Account: <b>19vNHxk11rSkekgMAX6iHCe4Cgj5FxZVtA</b></p>
 					<p>Balance: <b>100 MKR</b></p>
 				</div>
 				<div id="text-inputs">
@@ -45,6 +97,8 @@
 
 			</div>
 		</div>
+	</div>
+</div>
 		<script src="js/classie.js"></script>
 		<script>
 			(function() {
